@@ -19,7 +19,7 @@ fetch("./data.json")
             article.innerHTML = `<div>
                 <h3>${job.titulo}</h3>
                 <small>${job.empresa} | ${job.ubicacion}</small>
-                <p>${job.description}</p>
+                <p>${job.descripcion}</p>
             </div>
             <button class="button-apply-job" >Aplicar</button>`
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <title>DevJobs - Resultados</title>
-    <script async src="./script.js"></script>
+    <script type="module" src="./main.js"></script>
   </head>
   <body>
     <header>
@@ -19,7 +19,14 @@
       <div class="user-actions">
         <a href="#" class="secondary-button">Subir CV</a>
         <div class="profile">
-          <img src="profile-img.jpg" alt="User Icon" width="30" />
+          <devjobs-avatar service="google" username="google.com" size="32">
+          </devjobs-avatar>
+
+          <devjobs-avatar service="google" username="netflix.com" size="32">
+          </devjobs-avatar>
+
+          <devjobs-avatar service="google" username="vercel.com" size="32">
+          </devjobs-avatar>
         </div>
       </div>
     </header>
@@ -56,41 +63,39 @@
 
           <div class="search-filters">
             <select name="technology" id="filter-technology">
-              <option value="">Tecnología</option>
+            <option value="">Tecnología</option>
+            <optgroup label="Tecnologías populares">
               <option value="javascript">JavaScript</option>
               <option value="python">Python</option>
-              <option value="java">Java</option>
-              <option value="csharp">C#</option>
-              <option value="ruby">Ruby</option>
-              <option value="php">PHP</option>
-              <option value="go">Go</option>
-              <option value="typescript">TypeScript</option>
-            </select>
+              <option value="react">React</option>
+              <option value="nodejs">Node.js</option>
+            </optgroup>
+            <option value="java">Java</option>
+            <hr />
+            <option value="csharp">C#</option>
+            <option value="c">C</option>
+            <option value="c++">C++</option>
+            <hr />
+            <option value="ruby">Ruby</option>
+            <option value="php">PHP</option>
+          </select>
 
-            <select name="location " id="filter-location">
-              <option value="">Ubicación</option>
-              <option value="remoto">Remoto</option>
-              <option value="cdmx">Ciudad de Mexico</option>
-              <option value="guadalajara">Guadalajara</option>
-              <option value="monterrey">Monterrey</option>
-              <option value="barcelona">Barcelona</option>
-            </select>
+          <select name="location" id="filter-location">
+            <option value="">Ubicación</option>
+            <option value="remoto">Remoto</option>
+            <option value="cdmx">Ciudad de México</option>
+            <option value="guadalajara">Guadalajara</option>
+            <option value="monterrey">Monterrey</option>
+            <option value="barcelona">Barcelona</option>
+          </select>
 
-            <select name="experience-level" id="filter-experience-level">
-              <option value="">Nivel de experiencia</option>
-              <option value="junior">Junior</option>
-              <option value="mid-level">Mid-level</option>
-              <option value="senior">Senior</option>
-              <option value="lead">Lead</option>
-            </select>
-
-            <select name="contract-type" id="filter-contract-type">
-              <option value="">Tipo de contrato</option>
-              <option value="fulltime">Tiempo completo</option>
-              <option value="part-time">Medio tiempo</option>
-              <option value="freelance">Freelance</option>
-              <option value="internship">Pasantía</option>
-            </select>
+          <select name="experience-level" id="filter-experience-level">
+            <option value="">Nivel de experiencia</option>
+            <option value="junior">Junior</option>
+            <option value="mid">Mid-level</option>
+            <option value="senior">Senior</option>
+            <option value="lead">Lead</option>
+          </select>
           </div>
         </form>
         <span id="filter-selected-value"></span>
@@ -99,7 +104,58 @@
       <section>
         <h2>Resultados de la búsqueda</h2>
         <div class="job-listings">
-          <article data-modalidad="remoto" class="job-listing-card">
+          <!-- Aquí se insertan los empleos dinámicamente -->
+        </div>
+      </section>
+      <section class="pagination-wrapper">
+        <a href="#" class="prev">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ffffff"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M15 6l-6 6l6 6" />
+          </svg>
+        </a>
+        <a href="#" class="pagination-page">1</a>
+        <a href="#" class="pagination-page">2</a>
+        <a href="#" class="pagination-page">3</a>
+        <a href="#" class="pagination-page">4</a>
+        <a href="#" class="pagination-page">5</a>
+        <a href="#" class="prev">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ffffff"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M9 6l6 6l-6 6" />
+          </svg>
+        </a>
+      </section>
+    </main>
+    <footer>
+      <small>&copy; 2024 DevJobs. Todos los derechos reservados.</small>
+    </footer>
+  </body>
+</html>
+
+<!--<article data-modalidad="remoto" class="job-listing-card">
             <div>
               <h3>Ingeniero de Software</h3>
               <small>Tech Solutions Inc. | Remoto</small>
@@ -153,53 +209,4 @@
             </div>
 
             <button class="button-apply-job">Aplicar</button>
-          </article>
-        </div>
-      </section>
-      <section class="pagination-wrapper">
-        <a href="#" class="prev">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#ffffff"
-            stroke-width="1"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M15 6l-6 6l6 6" />
-          </svg>
-        </a>
-        <a href="#" class="pagination-page">1</a>
-        <a href="#" class="pagination-page">2</a>
-        <a href="#" class="pagination-page">3</a>
-        <a href="#" class="pagination-page">4</a>
-        <a href="#" class="pagination-page">5</a>
-        <a href="#" class="prev">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#ffffff"
-            stroke-width="1"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M9 6l6 6l-6 6" />
-          </svg>
-        </a>
-      </section>
-    </main>
-    <footer>
-      <small>&copy; 2024 DevJobs. Todos los derechos reservados.</small>
-    </footer>
-  </body>
-</html>
+          </article>-->
