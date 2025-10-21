@@ -9,6 +9,7 @@
       content="Encuentra y publica trabajos para desarrolladores web"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="index.js" defer></script>
   </head>
   <body>
     <header>
@@ -53,12 +54,13 @@
               <path d="M21 21l-6 -6" />
             </svg>
             <input
+            id="search-input"
               required
               type="text"
               placeholder="Buscar trabajos..."
               aria-label="Buscar trabajos"
             />
-            <button type="submit">Buscar</button>
+            <button id="search-btn" type="submit">Buscar</button>
           </div>
         </form>
       </section>
