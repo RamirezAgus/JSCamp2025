@@ -1,6 +1,6 @@
 const container = document.querySelector('.job-listings')
 
-const RESULTS_PER_PAGE = 3
+//const RESULTS_PER_PAGE = 3
 
 fetch("./data.json")
     .then((response) => {
@@ -13,7 +13,7 @@ fetch("./data.json")
 
             article.dataset.modalidad = job.data.modalidad
             article.dataset.nivel = job.data.nivel
-            article.dataset.technology = JSON.stringify(job.data.technology)
+            article.dataset.technology = job.data.technology
 
 
             article.innerHTML = `<div>

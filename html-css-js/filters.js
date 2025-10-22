@@ -1,10 +1,53 @@
-import { state } from './config.js'
+import { state } from "./config.js";
 
-state.count++
+state.count++;
 
 //console.log(state)
 
-const filterLocation = document.querySelector('#filter-location')
+const filterLocation = document.querySelector("#filter-location");
+const filterTech = document.querySelector("#filter-technology");
+const filterLevel = document.querySelector("#filter-experience-level");
+
+const mensaje = document.querySelector("#filter-selected-value");
+
+function applyAllFilters() {
+  const jobs = document.querySelectorAll(".job-listing-card");
+
+  const selectedLocation = filterLocation.value;
+  const selectedTech = filterTech.value;
+  const selectedLevel = filterLevel.value;
+
+  const activeFilters = [];
+
+  if (selectedLocation) activeFilters.push(`Ubicación: ${selectedLocation}`);
+  if (selectedTech) activeFilters.push(`Tecnología: ${selectedTech}`);
+  if (selectedLevel) activeFilters.push(`Nivel: ${selectedLevel}`);
+
+  mensaje.textContent =
+    activeFilters.length > 0
+      ? `Filtros activos - ${activeFilters.join(", ")}`
+      : "";
+
+  jobs.forEach((job) => {
+    const modalidad = job.getAttribute("data-modalidad");
+    const tecnologia = job.getAttribute("data-technology");
+    const nivel = job.getAttribute("data-nivel");
+
+    const locationMatch =
+      selectedLocation === "" || selectedLocation === modalidad;
+    const technologyMatch = selectedTech === "" || selectedTech === tecnologia;
+    const levelMatch = selectedLevel === "" || selectedLevel === nivel;
+    const isShown = locationMatch && technologyMatch && levelMatch;
+    job.classList.toggle("is-hidden", !isShown);
+    job.classList.toggle("is-shown", isShown);
+  });
+}
+
+filterLocation.addEventListener("change", applyAllFilters);
+filterTech.addEventListener("change", applyAllFilters);
+filterLevel.addEventListener("change", applyAllFilters);
+
+/*const filterLocation = document.querySelector('#filter-location')
 const mensaje = document.querySelector('#filter-selected-value')
 const filterTech = document.querySelector('#filter-technology')
 const filterLevel = document.querySelector('#filter-experience-level')
@@ -72,5 +115,4 @@ filterLevel.addEventListener('change', function () {
     const isShown = selectedValue === '' || selectedValue === nivel
     job.classList.toggle('is-hidden', isShown === false)
   })
-});
-
+});*/
