@@ -1,6 +1,7 @@
 import NavBar from "./components/Navbar"
+import Main from "./pages/Main"
 import Footer from "./components/Footer"
-import JobSearch from "./pages/JobSearch"
+//import JobSearch from "./pages/JobSearch"
 
 
 const App = () => {
@@ -10,7 +11,8 @@ const App = () => {
     <>
       
         <NavBar />
-        <JobSearch />
+        <Main />
+        {/*<JobSearch /> */}
         <Footer />
       
     </>
