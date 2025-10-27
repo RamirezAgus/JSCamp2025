@@ -1,22 +1,20 @@
-import NavBar from "./components/Navbar"
-import Main from "./pages/Main"
-import Footer from "./components/Footer"
-//import JobSearch from "./pages/JobSearch"
-
+import NavBar from "./components/Navbar";
+import Home from "./pages/Home";
+import Footer from "./components/Footer";
+import JobSearch from "./pages/JobSearch";
+import { Routes, Route } from "react-router";
 
 const App = () => {
-  
-
   return (
     <>
-      
-        <NavBar />
-        <Main />
-        {/*<JobSearch /> */}
-        <Footer />
-      
+      <NavBar />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="job-search" element={<JobSearch />} />
+      </Routes>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

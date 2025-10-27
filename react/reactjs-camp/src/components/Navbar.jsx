@@ -1,10 +1,13 @@
+import { Link } from "react-router";
+
+
 const NavBar = () => {
   return (
     <header>
       <h2>DevJobs</h2>
       <nav>
-        <a href="#">Inicio</a>
-        <a href="#">Empleos</a>
+        <Link to="/">Inicio</Link>
+        <Link to="/job-search">Empleos</Link>
         <a href="#">Empresas</a>
         <a href="#">Salarios</a>
       </nav>

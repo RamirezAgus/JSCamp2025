@@ -1,6 +1,6 @@
 import imgWallpaper from "../assets/background.webp";
 
-const Main = () => {
+const Home = () => {
   return (
     <main>
       <section>
@@ -11,7 +11,7 @@ const Main = () => {
           próxima oportunidad.
         </p>
         <form role="search">
-          <div>
+          <div className="search-bar">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -135,4 +135,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Home;
