@@ -1,7 +1,45 @@
-const Pagination = () => {
+import styles from './Pagination.module.css';
+
+const Pagination = ({ currentPage= 1, totalPages = 10, onPageChange }) => {
+
+  // generar un array de páginas a mostrar
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPages;
+
+  const stylePrevButton = isFirstPage ? { pointerEvents: 'none', opacity: 0.5 } : {}
+  const styleNextButton = isLastPage ? { pointerEvents: 'none', opacity: 0.5 } : {}
+
+  const handlePrevClick = (event) => {
+    event.preventDefault();
+    if (isFirstPage === false) {
+      onPageChange(currentPage - 1);
+    }
+  }
+
+  const handleNextClick = (event) => {
+    event.preventDefault();
+    if(isLastPage === false) {
+      onPageChange(currentPage + 1);
+    }
+  }
+
+  const handleChangePage = (event) => {
+    event.preventDefault();
+    const page = Number(event.target.dataset.page);
+
+    if(page !== currentPage) {
+      onPageChange(page);
+    }
+  }
+
+
   return (
-    <nav className="pagination">
-      <a href="#">
+    <nav className={styles.pagination}>
+      <a href="#"
+        style={stylePrevButton}
+        onClick={handlePrevClick}>
         <svg
           width="16"
           height="16"
@@ -16,14 +54,21 @@ const Pagination = () => {
           <path d="M15 6l-6 6l6 6" />
         </svg>
       </a>
-      <a className="is-active" href="#">
-        1
-      </a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">5</a>
-      <a href="#">
+      {pages.map((page) => (
+        <a
+          key={page}
+          data-page={page}
+          href="#"
+          className={currentPage === page ? styles.isActive : ''}
+          onClick={handleChangePage}
+          >
+          {page}
+          </a>
+      ))}
+      <a
+        href="#"
+        style={styleNextButton}
+        onClick={handleNextClick}>
         <svg
           width="16"
           height="16"

@@ -1,20 +1,86 @@
-import { useState } from "react";
-import JobCard from "../components/JobCard";
+import { useId, useState } from "react";
+
 import Pagination from "../components/Pagination";
+import JobListing from "../components/JobListing";
+
+import jobsdata from "../data.json";
+
+const RESULT_PER_PAGE = 5;
 
 const JobSearch = () => {
+  const [textToFilter, setTextToFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState({
+    technology: "",
+    location: "",
+    experienceLevel: "",
+  });
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [technology, setTechnology] = useState("");
-  const [location, setLocation] = useState("");
-  const [experienceLevel, setExperienceLevel] = useState("");
+  const idText = useId();
+  const idTechnology = useId();
+  const idLocation = useId();
+  const idExperienceLevel = useId();
+
+  // Filtrado por selects
+  const jobsFilteredByFilters = jobsdata.filter((job) => {
+    return (
+      (filters.technology === "" ||
+        job.data.technology === filters.technology) &&
+      (filters.location === "" || job.data.location === filters.location) &&
+      (filters.experienceLevel === "" ||
+        job.data.experienceLevel === filters.experienceLevel)
+    );
+  });
+
+  // Filtrado por texto
+  const jobsWithTextFilter =
+    textToFilter === ""
+      ? jobsFilteredByFilters
+      : jobsFilteredByFilters.filter((job) =>
+          job.titulo.toLowerCase().includes(textToFilter.toLowerCase())
+        );
+
+  // Paginación
+  const totalPages = Math.ceil(jobsWithTextFilter.length / RESULT_PER_PAGE);
+  const pagedResults = jobsWithTextFilter.slice(
+    (currentPage - 1) * RESULT_PER_PAGE,
+    currentPage * RESULT_PER_PAGE
+  );
+
+  // Cambiar página
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const newFilters = {
+      technology: formData.get(idTechnology),
+      location: formData.get(idLocation),
+      experienceLevel: formData.get(idExperienceLevel),
+    };
+
+    setFilters(newFilters);
+    setCurrentPage(1);
+  };
+
+  //  Buscar por texto
+  const handleTextToFilter = (event) => {
+    const newText = event.target.value;
+    setTextToFilter(newText);
+    setCurrentPage(1);
+  };
+
+  
 
   return (
     <main>
       <section className="job-search">
         <h1>Encuentra tu próximo trabajo</h1>
         <p>Explora miles de oportunidades en el sector tecnológico.</p>
-        <form role="search" id="empleos-search-form">
+        <form onSubmit={handleSearch} role="search" id="empleos-search-form">
           <div className="search-bar">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,22 +99,24 @@ const JobSearch = () => {
               <path d="M21 21l-6 -6" />
             </svg>
             <input
+              name={idText}
+              value={textToFilter}
+              onChange={handleTextToFilter}
               id="empleos-search-input"
-              required
               type="text"
               placeholder="Buscar trabajos, empresas o habilidades"
               aria-label="Buscar trabajos..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
             />
+            <button
+              type="submit"
+              style={{ position: "absolute", right: "4px" }}
+            >
+              Buscar
+            </button>
           </div>
 
           <div className="search-filters">
-            <select name="technology" 
-            id="filter-technology"
-            value={technology}
-            onChange={(e) => setTechnology(e.target.value)}
-            >
+            <select name={idTechnology} id="filter-technology">
               <option value="">Tecnología</option>
               <option value="javascript">JavaScript</option>
               <option value="python">Python</option>
@@ -63,11 +131,7 @@ const JobSearch = () => {
               <option value="mobile">Mobile</option>
             </select>
 
-            <select name="location" 
-            id="filter-location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            >
+            <select name={idLocation} id="filter-location">
               <option value="">Ubicación</option>
               <option value="remoto">Remoto</option>
               <option value="cdmx">Ciudad de México</option>
@@ -76,11 +140,7 @@ const JobSearch = () => {
               <option value="barcelona">Barcelona</option>
             </select>
 
-            <select name="experience-level" 
-            id="filter-experience-level"
-            value={experienceLevel}
-            onChange={(e) => setExperienceLevel(e.target.value)}
-              >
+            <select name={idExperienceLevel} id="filter-experience-level">
               <option value="">Nivel de experiencia</option>
               <option value="junior">Junior</option>
               <option value="mid">Mid-level</option>
@@ -92,20 +152,14 @@ const JobSearch = () => {
         <span id="filter-selected-value"></span>
       </section>
       <section>
-        <h2>Resultados de la búsqueda</h2>
-        <div className="job-listings">
-          {/* Pasamos los filtros por Props*/}
-          <JobCard 
-            searchTerm={searchTerm}
-            technology={technology}
-            location={location}
-            experienceLevel={experienceLevel}
-          />
-        </div>
-        <Pagination />
+        <JobListing jobs={pagedResults} />
       </section>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </main>
-    
   );
 };
 

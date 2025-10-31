@@ -11,8 +11,8 @@ const NavBar = () => {
         <a href="#">Empresas</a>
         <a href="#">Salarios</a>
       </nav>
-      <div className="user-actions">
-        <a href="#" className="secondary-button">
+      <div>
+        <a href="#">
           Subir CV
         </a>
         <div className="profile">
