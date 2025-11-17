@@ -3,18 +3,18 @@ import { useSearchForm } from "../hooks/useSearchForm";
 
 //let timeoutId = null;
 
-
-
 export function SearchFormSection({ onTextFilter, onSearch }) {
   const idText = useId();
   const idTechnology = useId();
   const idLocation = useId();
   const idExperienceLevel = useId();
+  const idContractType = useId();
 
   const { searchText, handleSubmit, handleTextChange } = useSearchForm({
     idTechnology,
     idLocation,
     idExperienceLevel,
+    idContractType,
     idText,
     onSearch,
     onTextFilter,
@@ -61,16 +61,38 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
               <option value="javascript">JavaScript</option>
               <option value="python">Python</option>
               <option value="react">React</option>
-              <option value="nodejs">Node.js</option>
+              <option value="node">Node.js</option>
             </optgroup>
-            <option value="java">Java</option>
             <hr />
-            <option value="csharp">C#</option>
-            <option value="c">C</option>
-            <option value="c++">C++</option>
+            <optgroup label="Frontend">
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="javascript">JavaScript</option>
+              <option value="typescript">TypeScript</option>
+            </optgroup>
             <hr />
-            <option value="ruby">Ruby</option>
-            <option value="php">PHP</option>
+            <optgroup label="Backend">
+              <option value="nodejs">Node.js</option>
+              <option value="python">Python</option>
+              <option value="express">Express</option>
+              <option value="microservices">Microservicios</option>
+              <option value="php">PHP</option>
+            </optgroup>
+            <hr />
+            <optgroup label="Software">
+              <option value="java">Java</option>
+              <option value="csharp">C#</option>
+              <option value="c">C</option>
+              <option value="c++">C++</option>
+              <option value="ruby">Ruby</option>
+            </optgroup>
+            <hr/>
+            <optgroup label="Base de datos">
+              <option value="sql">SQL</option>
+              <option value="postgresql">PostgreSQL</option>
+              <option value="mysql">MySQL</option>
+              <option value="mongodb">MongoDB</option>
+            </optgroup>
           </select>
 
           <select name={idLocation} id="filter-location">
@@ -88,6 +110,13 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
             <option value="mid">Mid-level</option>
             <option value="senior">Senior</option>
             <option value="lead">Lead</option>
+          </select>
+          <select name={idContractType} id="filter-contract-type">
+            <option value="">Contrato</option>
+            <option value="full-time">Full Time</option>
+            <option value="part-time">Part Time</option>
+            <option value="freelance">Freelance</option>
+            <option value="intership">Prácticas</option>
           </select>
         </div>
       </form>

@@ -4,6 +4,7 @@ export const useSearchForm = ({
   idTechnology,
   idLocation,
   idExperienceLevel,
+  idContractType,
   idText,
   onSearch,
   onTextFilter,
@@ -24,6 +25,7 @@ export const useSearchForm = ({
       technology: formData.get(idTechnology),
       location: formData.get(idLocation),
       experienceLevel: formData.get(idExperienceLevel),
+      contractType: formData.get(idContractType),
     };
 
     onSearch(filters);

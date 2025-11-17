@@ -5,6 +5,7 @@ export const useFilters = (RESULTS_PER_PAGE = 4) => {
     technology: "",
     location: "",
     experienceLevel: "",
+    contractType: "",
   });
   const [textToFilter, setTextToFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,6 +13,21 @@ export const useFilters = (RESULTS_PER_PAGE = 4) => {
   const [jobs, setJobs] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+
+
+  // Funcion para actualizar filtros y resetear a pagina 1
+  const updateFilters = (newFilters) => {
+    setFilters(newFilters);
+    setCurrentPage(1)
+  }
+
+  // Funcion para actualizar texto del filtro y resetear a pagina 1
+  const updateTextFilter = (newTextToFilter) => {
+    setTextToFilter(newTextToFilter);
+    setCurrentPage(1);
+  }
+
+
 
   useEffect(() => {
     async function fetchJobs() {
@@ -24,6 +40,7 @@ export const useFilters = (RESULTS_PER_PAGE = 4) => {
         if (filters.location) params.append("location", filters.location);
         if (filters.experienceLevel)
           params.append("level", filters.experienceLevel);
+        if (filters.contractType) params.append("contract-type", filters.contractType);
 
         const offset = (currentPage - 1) * RESULTS_PER_PAGE;
         params.append("limit", RESULTS_PER_PAGE);
@@ -54,13 +71,11 @@ export const useFilters = (RESULTS_PER_PAGE = 4) => {
   };
 
   const handleSearch = (filters) => {
-    setFilters(filters);
-    setCurrentPage(1);
+    updateFilters(filters)
   };
 
   const handleTextFilter = (newTextToFilter) => {
-    setTextToFilter(newTextToFilter);
-    setCurrentPage(1);
+    updateTextFilter(newTextToFilter);
   };
 
   return {
@@ -72,5 +87,7 @@ export const useFilters = (RESULTS_PER_PAGE = 4) => {
     handlePageChange,
     handleSearch,
     handleTextFilter,
+    filters,
+    textToFilter,
   };
 };
