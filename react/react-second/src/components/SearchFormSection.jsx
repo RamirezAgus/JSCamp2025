@@ -1,55 +1,9 @@
-import { useId, useState } from "react";
+import { useId } from "react";
+import { useSearchForm } from "../hooks/useSearchForm";
 
-let timeoutId = null;
+//let timeoutId = null;
 
-const useSearchForm = ({
-  idTechnology,
-  idLocation,
-  idExperienceLevel,
-  idText,
-  onSearch,
-  onTextFilter,
-}) => {
-  const [searchText, setSearchText] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-
-    if (event.target.name === idText) {
-      return; // ya lo manejamos en onChange
-    }
-
-    const filters = {
-      technology: formData.get(idTechnology),
-      location: formData.get(idLocation),
-      experienceLevel: formData.get(idExperienceLevel),
-    };
-
-    onSearch(filters);
-  };
-
-  const handleTextChange = (event) => {
-    const text = event.target.value;
-    setSearchText(text); // actualizamos el input inmediatamente
-
-    // Debounce: Cancelar el timeout anterior
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-
-    timeoutId = setTimeout(() => {
-      onTextFilter(text);
-    }, 500);
-  };
-
-  return {
-    searchText,
-    handleSubmit,
-    handleTextChange,
-  };
-};
 
 export function SearchFormSection({ onTextFilter, onSearch }) {
   const idText = useId();
@@ -57,7 +11,7 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
   const idLocation = useId();
   const idExperienceLevel = useId();
 
-  const { handleSubmit, handleTextChange } = useSearchForm({
+  const { searchText, handleSubmit, handleTextChange } = useSearchForm({
     idTechnology,
     idLocation,
     idExperienceLevel,
@@ -94,6 +48,7 @@ export function SearchFormSection({ onTextFilter, onSearch }) {
             name={idText}
             id="empleos-search-input"
             type="text"
+            value={searchText}
             placeholder="Buscar trabajos, empresas o habilidades"
             onChange={handleTextChange}
           />

@@ -1,9 +1,10 @@
 import { JobCard } from './JobCard';
+import style from './JobListing.module.css'
 
 export function JobListing({ jobs }) {
   return (
     <>
-      <div className="jobs-listings">
+      <div className={style.jobListing}>
         {jobs.length === 0 && (
           <p
             style={{
