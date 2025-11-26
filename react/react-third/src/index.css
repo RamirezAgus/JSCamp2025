@@ -385,7 +385,7 @@ footer {
 }
 
 .nav-link-active {
-  color: yellow;
+  color: rgb(0, 162, 255);
   pointer-events: none;
 }
 

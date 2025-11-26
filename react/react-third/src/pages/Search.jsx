@@ -12,6 +12,7 @@ const RESULTS_PER_PAGE = 4;
 
 export default function SearchPage() {
   const {
+    filters,
     jobs,
     total,
     loading,
@@ -37,6 +38,7 @@ export default function SearchPage() {
 
       <SearchFormSection
         initialText={textToFilter}
+        initialFilters={filters}
         onSearch={handleSearch}
         onTextFilter={handleTextFilter}
       />

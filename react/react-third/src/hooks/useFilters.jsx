@@ -32,7 +32,7 @@ export const useFilters = (RESULTS_PER_PAGE = 4) => {
         const params = new URLSearchParams();
         if (textToFilter) params.append("text", textToFilter);
         if (filters.technology) params.append("technology", filters.technology);
-        if (filters.location) params.append("location", filters.location);
+        if (filters.location) params.append("type", filters.location);
         if (filters.experienceLevel)
           params.append("level", filters.experienceLevel);
         if (filters.contractType) params.append("contract-type", filters.contractType);
