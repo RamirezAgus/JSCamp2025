@@ -34,9 +34,15 @@ export function Pagination({ currentPage= 1, totalPages = 10, onPageChange }) {
     }
   }
 
+  const buildPageUrl = (page) => {
+    const url = new URL(window.location)
+    url.searchParams.set('page', page)
+    return `${url.pathname}?${url.searchParams.toString()}`
+  }
+
     return (
         <nav className={styles.pagination}>
-              <a href="#"
+              <a href={buildPageUrl(currentPage - 1)}
                 style={stylePrevButton}
                 onClick={handlePrevClick}>
                 <svg
@@ -57,7 +63,7 @@ export function Pagination({ currentPage= 1, totalPages = 10, onPageChange }) {
                 <a
                   key={page}
                   data-page={page}
-                  href="#"
+                  href={buildPageUrl(page)}
                   className={currentPage === page ? styles.isActive : ''}
                   onClick={handleChangePage}
                   >
@@ -65,7 +71,7 @@ export function Pagination({ currentPage= 1, totalPages = 10, onPageChange }) {
                   </a>
               ))}
               <a
-                href="#"
+                href={buildPageUrl(currentPage + 1)}
                 style={styleNextButton}
                 onClick={handleNextClick}>
                 <svg
