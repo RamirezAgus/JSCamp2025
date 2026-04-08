@@ -26,17 +26,3 @@
     text-decoration: underline;
   }
 }
-
-.jobListingCard {
-  display: flex; /* valor original */
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 1rem;
-    background: none;
-    box-shadow: none;
-    border-radius: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, .3);
-    margin: 0;
-
-    
-}

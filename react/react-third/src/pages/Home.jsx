@@ -48,7 +48,7 @@ export default function Home() {
             <input
               name="search"
               required
-              type="text"
+              type="search"
               placeholder="Buscar trabajos..."
               aria-label="Buscar trabajos"
             />
